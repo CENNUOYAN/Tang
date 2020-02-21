@@ -39,7 +39,7 @@
        methods:{
            goLess(){
                if(this.number > this.min){
-                   this.number = (this.number*10 - 1)/10;
+                   this.number = this.number - 1;
                 //    console.log('this.number',this.number);
                    
                }
@@ -50,7 +50,7 @@
            goAdd(){
 
                if(this.number < this.max){
-                   this.number = (this.number*10 + 1)/10;
+                   this.number = this.number + 1;
                }
                else{
                    this.number = this.max;

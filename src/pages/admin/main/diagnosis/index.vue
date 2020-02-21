@@ -17,14 +17,13 @@
             <div class="item-title">
                 姓名
             </div>
-            <el-input v-model="input" placeholder="未填写" class="username"></el-input>
-            <!-- <input type="text" class="username" placeholder="未填写"> -->
+            <el-input v-model="input" placeholder="未填写" class="username-input"></el-input>
         </div>
         <div class="personal-item">
             <div class="item-title">
                 性别
             </div>
-            <el-select v-model="value" placeholder="请选择">
+            <el-select v-model="sex" placeholder="请选择">
             <el-option
                 v-for="item in sexlists"
                 :key="item.value"
@@ -37,7 +36,7 @@
             <div class="item-title">
                 身高
             </div>
-            <el-select v-model="value" placeholder="请选择">
+            <el-select v-model="height" placeholder="请选择">
             <el-option
                 v-for="item in heightlists"
                 :key="item.value"
@@ -50,7 +49,7 @@
             <div class="item-title">
                 体重
             </div>
-            <el-select v-model="value" placeholder="请选择">
+            <el-select v-model="weight" placeholder="请选择">
             <el-option
                 v-for="item in weightlists"
                 :key="item.value"
@@ -73,7 +72,7 @@
             <div class="item-title">
                 糖尿病类型
             </div>
-            <el-select v-model="value" placeholder="请选择">
+            <el-select v-model="type" placeholder="请选择">
             <el-option
                 v-for="item in typelists"
                 :key="item.value"
@@ -105,6 +104,10 @@ export default {
         return {
             age: '',
             year: '',
+            height: '',
+            weight: '',
+            sex: '',
+            type: '',
             patientLists: [
                 {
                     value: '选项1',
@@ -117,218 +120,218 @@ export default {
             ],
             sexlists: [
                 {
-                    id: 1,
+                    value: 1,
                     label: '男'
                 },
                 {
-                    id: 2,
+                    value: 2,
                     label: '女'
                     
                 }
             ],
             heightlists: [
                 {
-                    id: 1,
+                    value: 1,
                     label: '50cm'
                 },
                 {
-                    id: 2,
+                    value: 2,
                     label: '51cm'
                     
                 },
                 {
-                    id: 3,
+                    value: 3,
                     label: '52cm'
                 },
                 {
-                    id: 4,
+                    value: 4,
                     label: '53cm'
                     
                 },
                 {
-                    id: 5,
+                    value: 5,
                     label: '54cm'
                 },
                 {
-                    id: 6,
+                    value: 6,
                     label: '55cm'
                     
                 },
                 {
-                    id: 7,
+                    value: 7,
                     label: '56cm'
                 },
                 {
-                    id: 8,
+                    value: 8,
                     label: '57cm'
                     
                 },
                 {
-                    id: 9,
+                    value: 9,
                     label: '58cm'
                 },
                 {
-                    id: 10,
+                    value: 10,
                     label: '59cm'
                     
                 },
                 {
-                    id: 11,
+                    value: 11,
                     label: '60cm'
                 },
                 {
-                    id: 12,
+                    value: 12,
                     label: '61cm'
                     
                 },
                 {
-                    id: 13,
+                    value: 13,
                     label: '62cm'
                 },
                 {
-                    id: 14,
+                    value: 14,
                     label: '63cm'
                     
                 },
                 {
-                    id: 15,
+                    value: 15,
                     label: '64cm'
                 },
                 {
-                    id: 6,
+                    value: 6,
                     label: '65cm'
                     
                 },
                 {
-                    id: 17,
+                    value: 17,
                     label: '66cm'
                 },
                 {
-                    id: 18,
+                    value: 18,
                     label: '67cm'
                     
                 },
                 {
-                    id: 19,
+                    value: 19,
                     label: '68cm'
                 },
                 {
-                    id: 20,
+                    value: 20,
                     label: '69cm'
                     
                 },
             ],
             weightlists: [
                 {
-                    id: 1,
+                    value: 1,
                     label: '50kg'
                 },
                 {
-                    id: 2,
+                    value: 2,
                     label: '51kg'
                     
                 },
                 {
-                    id: 3,
+                    value: 3,
                     label: '52kg'
                 },
                 {
-                    id: 4,
+                    value: 4,
                     label: '53kg'
                     
                 },
                 {
-                    id: 5,
+                    value: 5,
                     label: '54kg'
                 },
                 {
-                    id: 6,
+                    value: 6,
                     label: '55kg'
                     
                 },
                 {
-                    id: 7,
+                    value: 7,
                     label: '56kg'
                 },
                 {
-                    id: 8,
+                    value: 8,
                     label: '57kg'
                     
                 },
                 {
-                    id: 9,
+                    value: 9,
                     label: '58kg'
                 },
                 {
-                    id: 10,
+                    value: 10,
                     label: '59kg'
                     
                 },
                 {
-                    id: 11,
+                    value: 11,
                     label: '60kg'
                 },
                 {
-                    id: 12,
+                    value: 12,
                     label: '61kg'
                     
                 },
                 {
-                    id: 13,
+                    value: 13,
                     label: '62kg'
                 },
                 {
-                    id: 14,
+                    value: 14,
                     label: '63kg'
                     
                 },
                 {
-                    id: 15,
+                    value: 15,
                     label: '64kg'
                 },
                 {
-                    id: 6,
+                    value: 6,
                     label: '65kg'
                     
                 },
                 {
-                    id: 17,
+                    value: 17,
                     label: '66kg'
                 },
                 {
-                    id: 18,
+                    value: 18,
                     label: '67kg'
                     
                 },
                 {
-                    id: 19,
+                    value: 19,
                     label: '68kg'
                 },
                 {
-                    id: 20,
+                    value: 20,
                     label: '69kg'
                     
                 },
             ],
             typelists: [
                 {
-                    id: 1,
+                    value: 1,
                     label: '1型糖尿病'
                 },
                 {
-                    id: 2,
+                    value: 2,
                     label: '2型糖尿病'
                 },
                 {
-                    id: 3,
+                    value: 3,
                     label: '妊娠糖尿病'
                 },
                 {
-                    id: 4,
+                    value: 4,
                     label: '特殊糖尿病'
                 },
                 {
-                    id: 5,
+                    value: 5,
                     label: '糖尿病前期'
                 }
             ],
@@ -490,13 +493,13 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 @import '@/assets/scss/rem.scss';
 .diagnosis{
     background:linear-gradient(0deg,rgba(64,60,97,1),rgba(81,77,113,1));
     box-shadow:0px rem(10) rem(30) 0px rgba(16,15,24,0.2);
     border-radius:rem(20);
-    overflow:auto;
+    /* overflow:auto; */
     box-sizing:border-box;
     padding:rem(60) rem(80) rem(80) rem(80);
     height:100%;
@@ -504,7 +507,7 @@ export default {
     display:flex;
     flex-direction:column;
     .personal-item{
-        margin-bottom:rem(59);
+        margin-bottom:rem(30);
         display: flex;
         align-items: center;
         .item-title{
@@ -515,30 +518,36 @@ export default {
         }   
         .el-select{
             width: rem(600);
-            // height: rem(100);
-            box-sizing:border-box;
+            height: rem(50);
+            display: flex;
             .el-input{
                 width: rem(600);
-                height: rem(100);
-                .el-input__inner{
-                    width: rem(600);
-                    height: rem(100);
-                    box-sizing:border-box;
-                }
-                .el-select__caret{
-                    
-                }
+                height: rem(50);
             }
-        }   
+            .el-input__inner{
+                width: rem(600);
+                height: rem(50);
+                box-sizing: border-box;
+                /* border: none;
+                border: 1px solid rgba(242,242,242,1); */
+            }
+            .el-input__suffix{
+                display: none;
+            }
+            }
         .el-date-editor{
             width: rem(600);
         } 
-        .username{
+        .username-input{
             width: rem(600);
-            height: rem(100);
+            height: rem(50);
             box-sizing:border-box;
             border-radius: rem(10);
             border: none;
+            .el-input__inner{
+                width: rem(600);
+                height: rem(50);
+            }
         }     
     }
 

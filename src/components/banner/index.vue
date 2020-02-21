@@ -29,7 +29,7 @@ export default {
                 },
                 {
                     id:'check',
-                    name:'运动安排',
+                    name:'饮食运动',
                     icon:require('./images/jiancha.png'),
                     active:require('./images/jc_celect.png'),
                 },
@@ -45,21 +45,21 @@ export default {
                     icon:require('./images/zhenduan.png'),
                     active:require('./images/cbzd_celect.png'),
                 },
-                {
-                    id:'care',
-                    name:'治疗/护理',
-                    icon:require('./images/huli.png'),
-                    active:require('./images/zlhl_celect.png'),
-                },
-                {
-                    id:'caserecord',
-                    name:'病历',
-                    icon:require('./images/bingli.png'),
-                    active:require('./images/bl_celect.png'),
-                },
+                // {
+                //     id:'care',
+                //     name:'治疗/护理',
+                //     icon:require('./images/huli.png'),
+                //     active:require('./images/zlhl_celect.png'),
+                // },
+                // {
+                //     id:'caserecord',
+                //     name:'病历',
+                //     icon:require('./images/bingli.png'),
+                //     active:require('./images/bl_celect.png'),
+                // },
                 {
                     id:'greenchannel',
-                    name:'绿色通道',
+                    name:'复查提醒',
                     icon:require('./images/tongdao.png'),
                     active:require('./images/lstd_celect.png'),
                 },
@@ -137,7 +137,8 @@ export default {
 			justify-content: center;
             .icon{
                 margin-bottom: rem(5);
-                width: 100%;
+                width: rem(150);
+                height: rem(150);
             }
         }
         .title{

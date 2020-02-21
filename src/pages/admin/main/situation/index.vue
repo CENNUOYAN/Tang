@@ -1,9 +1,8 @@
 <template>
     <div class="situation">
-        <div class="green-item">
-            <div class="title title-main">出车结果</div>
-            <div class="content first-content">
-                <span :class="'checkbox checkbox-small '+(currId==item.id?'active':'unactive')"
+        <div class="target-table">
+            <div class="table-header">
+                <span class="header-item"
                     v-for="(item,index) in greenchannelLists"
                     @click="choose(item)"
                     :key="index"
@@ -12,27 +11,34 @@
                     {{item.name}}
                 </span>
             </div>
-
-        </div>
-        
-        <div class="green-item">
-            <div class="title title-main">收费金额</div>
-            <div class="content first-content">
-                <el-input type="number" class="main-input" v-model="price" placeholder="请输入收费金额"></el-input>
-                <span class="unit">元</span>
+            <div class="table-center">
+                <span class="title">推荐值</span>
+                <span class="header-item"
+                    v-for="(item,index) in recommendlLists"
+                    @click="choose(item)"
+                    :key="index"
+                    >
+                    <div class="inner-shadow"></div>
+                    {{item.name}}
+                </span>
             </div>
-
-        </div>
-
-        <div class="green-item">
-            <div class="title title-main">备注</div>
-            <div class="content second-content">
-                <textarea v-model="remark" placeholder="请输入患者既往病史.."/>
+            <div class="table-center">
+                <span class="title">目标值</span>
+                <span class="header-item"
+                    v-for="(item,index) in recommendlLists"
+                    @click="choose(item)"
+                    :key="index"
+                    >
+                    <div class="inner-shadow"></div>
+                    {{item.name}}
+                </span>
             </div>
         </div>
-
-        <div class="check-item">
-            <el-button type="primary" class="main-btn" @click.native="saving">保存</el-button>
+        <div class="tips">
+            <div class="title">温馨提示</div>
+            <div class="tip-text">
+                1.推荐值是根据年龄，糖尿病类型、并发症等情况而智能分析出的最适合你的个性化控糖目标，你可完善个人资料，以获得准确的推荐值。
+            </div>
         </div>
     </div>
 </template>
@@ -48,32 +54,54 @@ export default {
             greenchannelLists:[
                 {
                     id:1,
-                    name:'回本院'
+                    name:'糖化'
                 },
                 {
                     id:2,
-                    name:'送往其他医院'
+                    name:'空腹'
                 },
                 {
                     id:3,
-                    name:'拒绝治疗'
+                    name:'餐前'
                 },
                 {
                     id:4,
-                    name:'现场治疗'
+                    name:'餐后'
                 },
                 {
                     id:5,
-                    name:'留原地'
+                    name:'睡前'
                 },
                 {
                     id:6,
-                    name:'警察处理'
+                    name:'凌晨'
+                },
+            ],
+            recommendlLists:[
+                {
+                    id:1,
+                    name:'<7.0%'
                 },
                 {
-                    id:7,
-                    name:'取消出车'
-                }
+                    id:2,
+                    name:'4.4-7.0'
+                },
+                {
+                    id:3,
+                    name:'4.4-7.0'
+                },
+                {
+                    id:4,
+                    name:'5.0-10.0'
+                },
+                {
+                    id:5,
+                    name:'5.0-10.0'
+                },
+                {
+                    id:6,
+                    name:'5.0-10.0'
+                },
             ],
             currId:1,
             price:'',
@@ -187,64 +215,50 @@ export default {
     border-radius:rem(20);
     overflow:auto;
     box-sizing:border-box;
-    padding:rem(39) rem(80) rem(39) rem(80);
+    padding:rem(39) rem(60) rem(39) rem(60);
     height:100%;
     width:100%;
     display:flex;
     flex-direction:column;
-    .green-item{
-        .title{
-            text-align:left;
-            margin-bottom:rem(30);
-        }
-        .title-time{
-            font-size:rem(24);
-            color:rgba(255,255,255,0.5);
-        }
-        .title-main{
-            font-size:rem(30);
-        }
-        .first-content{
-            margin-bottom:rem(39);
+    .target-table{
+        text-align: left;
+        .table-header{
+            padding-left: rem(108);
+            margin-bottom: rem(20);
             display: flex;
-            flex-wrap:wrap;
-            .checkbox {
-                margin-bottom:rem(30);
+            .header-item{
+                /* margin-right: rem(108); */
+                width: rem(120);
             }
         }
-
-        .second-content{
-            // width:rem(600);
-            width:100%;
-            height:rem(120);
-            margin-bottom:rem(40);
-            textarea{
-                width:100%;
-                height:100%;
-                background:rgba(96,96,128,1);
-                box-shadow:0px 0px 2px 0px rgba(255,255,255,1);
-                border-radius:rem(10);
-                padding:rem(40);
-                box-sizing:border-box;
-                border:none;
-                color:#ffffff;
+        .table-center{
+            /* padding-left: rem(88); */
+            margin-bottom: rem(20);
+            display: flex;
+            .title{
+                margin-right: rem(20);
             }
-            textarea::-webkit-input-placeholder {
-                color:rgba(255,255,255,0.5);
-            }
-            textarea:-moz-placeholder {
-                color:rgba(255,255,255,0.5);
-            }
-            textarea::-moz-placeholder {
-                color:rgba(255,255,255,0.5);
-            }
-            textarea:-ms-input-placeholder {
-                color:rgba(255,255,255,0.5);
-
+            .header-item{
+                /* margin-right: rem(80); */
+                width: rem(120);
             }
         }
     }
-
+    .tips{
+        display: flex;
+        flex-direction: column;
+        .title{
+            background-color: #da4f4f;
+            border-radius: rem(20);
+            width: rem(150);
+            height: rem(30);
+            line-height: rem(30);
+            margin-bottom: rem(20);
+        }
+        .tip-text{
+            text-align: left;
+        }
+    }
 
     .checkbox-small{
         // width:rem(176);

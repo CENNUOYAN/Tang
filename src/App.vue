@@ -61,7 +61,7 @@ export default {
         // this.init()
 
         window.getBaseInfo = function(res){
-           this.getBaseInfo(res)
+        //    this.getBaseInfo(res)
         }
     }
 }

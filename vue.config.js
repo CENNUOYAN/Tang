@@ -85,7 +85,7 @@ module.exports = {
     devServer: {
         // proxy: 'http://www.kuaidi100.com',       //动态代理ip
         // proxy: 'http://192.168.1.191:8035',      //威哥
-        proxy:'http://192.168.1.143:8035',       //平哥
+        proxy:'http://192.168.1.221:8035',       //平哥
         // proxy:'http://120.24.237.109:8035',      //测试服务器
         index: '/index.html',
         open: false, // 项目构建成功之后，自动弹出页面

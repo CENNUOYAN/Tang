@@ -6,10 +6,10 @@
                 <div class="item-title">{{item.name}}</div>
                 <div class="con">
                     <span class="value">
-                        <inputnumber :index="index" @getNumber="getNumber1" :value="item.value" :unit="item.unit"></inputnumber>
+                        <inputnumber :index="index" @getNumber="getNumber" :value="item.value" :unit="item.unit"></inputnumber>
                     </span>
                     <span class="value-slider">
-                        <cusslider :index="index" :num="item.value" @updateVal="updateVal1"></cusslider>
+                        <cusslider :index="index" :num="item.value" @updateVal="updateVal"></cusslider>
                     </span>
                 </div>
             </div>
@@ -20,22 +20,23 @@
             <div class="item" v-if="item.type==5">
                 <div class="item-title">{{item.name}}</div>
                 <div class="con">
-                    
-                    <span class="unit-item">
-                        <span class="unit-side">{{parseInt(item.energy*item.duration)}}千卡/{{item.duration}}分钟</span>
-                    </span>
                     <span class="value">
-                        <inputnumber :index="index" @getNumber="getNumber" :value="item.duration" :unit="item.unit"></inputnumber>
+                        <inputnumber :index="index" @getNumber="getNumber" :value="item.value" :unit="item.unit"></inputnumber>
                     </span>
                     <span class="value-slider">
-                        <cusslider :index="index" :num="item.duration" @updateVal="updateVal"></cusslider>
+                        <cusslider :index="index" :num="item.value" @updateVal="updateVal"></cusslider>
                     </span>
 
+                    <span class="unit-item">
+                        <span class="unit-side">左</span>
+                        <el-input class="main-input" v-model="item.value2" placeholder="请输入"></el-input>
+                        <span class="unit-side">右</span>
+                    </span>
                 </div>
             </div>
 
             <!-- 文本标签（文本+文本）5 -->
-            <!-- <div class="item" v-if="item.type==5">
+            <div class="item" v-if="item.type==5">
                 <div class="item-title">{{item.name}}</div>
                 <div class="con">
                    <span class="unit-item">
@@ -50,7 +51,7 @@
                         <span class="unit-side">右</span>
                     </span>
                 </div>
-            </div> -->
+            </div>
 
             <!-- 时间类型6 -->
             <div class="item" v-if="item.type==6">
@@ -134,7 +135,6 @@ import cusslider from '@/components/slider/index';
 export default {
     data(){
         return {
-            minute: 30,
             // formLists:
             // [
             //     {
@@ -218,10 +218,7 @@ export default {
                 this.$emit('updateFormLists',this.formLists)
             },
             deep: true
-        },
-        // minute(val, oldval){
-        //     this.energy = parseInt((115/30)*val)
-        // },
+        }
     },
     computed:{
 
@@ -230,19 +227,11 @@ export default {
         console.log(this.formLists)
     },
     methods:{
-        getNumber1(val,index){
-            this.formLists[index].value = val
-        },
-        updateVal1(val,index){
-            this.formLists[index].value = val
-        },
         getNumber(val,index){
-            this.formLists[index].duration = val
-            // this.minute = val
+            this.formLists[index].value = val
         },
         updateVal(val,index){
-            this.formLists[index].duration = val
-            // this.minute = val
+            this.formLists[index].value = val
         },
         choose(item,item2){
             console.log('选择了',item);
@@ -322,15 +311,14 @@ export default {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        /* align-items: center; */
+        align-items: center;
        
     }
 
     .unit-item{
         display: flex;
         align-items: center;
-        margin: rem(20) 0;
-        padding-left: rem(35);
+        margin-top: rem(20);
         .unit-side{
             margin-left: rem(10);
             margin-right: rem(10);

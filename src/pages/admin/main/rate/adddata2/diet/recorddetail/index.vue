@@ -1,19 +1,44 @@
 <template>
-    <div class="rate">
+    <div class="diet">
         <div class="check-item">
-            <div class="content first-content">
-                <span :class="'checkbox checkbox-small '+(currId==item.id?'active':'unactive')"
-                    v-for="(item,index) in greenchannelLists"
-                    @click="choose(item)"
-                    :key="index"
-                    >
-                    <div class="inner-shadow"></div>
-                    {{item.name}}
-                </span>
+            <div class="title">
+                <span class="left">添加饮食记录</span>
             </div>
-
+            <div class="value value-check">
+                <div class="nav-content">
+                    <div class="content first-content">
+                        <div class="data-item">
+                            <div class="item-title">
+                                测量时间
+                            </div>
+                            <el-date-picker
+                              v-model="record.time"
+                              type="date"
+                              placeholder="选择日期时间">
+                            </el-date-picker>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav">
+                    <div class="nav-lists">
+                        <span :class="currCheck==item.id?'nav-active':''" v-for="(item,index) in resultLists"
+                            :key="index"
+                            @click="choose(item)">
+                            {{item.name}}
+                        </span>
+                    </div>
+                    <div class="underline"></div>
+                </div>
+                <div class="nav-content">
+                    <div class="content second-content">
+                        <textarea v-model="remark" placeholder="描述下你吃的食物如米饭一碗、红烧肉50克等"/>
+                    </div>
+                </div>
+            </div>
         </div>
-        <!-- <router-view></router-view> -->
+        <div class="save-item">
+            <el-button type="primary" class="main-btn" @click.native="saving">保存</el-button>
+        </div>
     </div>
 </template>
 
@@ -27,66 +52,31 @@ import {mapState} from 'vuex'
 export default {
     data() {
         return {
-            greenchannelLists:[
-                {
-                    id: 'seedata',
-                    name:'血糖数据'
-                },
-                {
-                    id: 'adddata2',
-                    name:'添加数据'
-                },
-            ],
-            currId: '',
             time: '', 
-            input:'',
-            numberP1: '',
-            numberP2: '',
-            numberW: '',
+            remark: '',
             resultLists:[
                 {
                     id:1,
-                    name:'空腹'
+                    name:'早'
                 },
                 {
                     id:2,
-                    name:'早餐后'
+                    name:'中'
                 },
                 {
                     id:3,
-                    name:'午餐前'
+                    name:'晚'
                 },
-                {
-                    id:4,
-                    name:'午餐后'
-                },
-                {
-                    id:5,
-                    name:'晚餐前'
-                },
-                {
-                    id:6,
-                    name:'晚餐后'
-                }
             ],
-            drugType: '',
-            drug: '',
-            druglists:[
-                {
-                    value: 1,
-                    label: '多巴胺'
-                },
-                {
-                    value: 2,
-                    label: '肾上腺素'
-                    
-                }
-            ],
+            
             currCheck:1,
             currId:'',
+            recordId: '',
+            record: '',
             patientId:'',
             medicalRecordId:'',
-            classifyIdLists:[]
+            classifyIdLists:[],
+            isDialog: false,
         };
     },
     computed: {
@@ -99,6 +89,7 @@ export default {
     },
     mounted() {
         this.dealQuery();
+        this.remark = this.record.breakfast
     },
     watch: {
         $route(to,from){
@@ -112,16 +103,41 @@ export default {
             if(query && query.pid){
                 this.patientId = query.pid
             }
-            if(query && query.mid){
-                this.medicalRecordId = query.mid
+            if(query && query.recordId){
+                this.recordId = query.recordId
+            }
+            if(query && query.record){
+                this.record = query.record
             }
         },
-        choose(item){
-            this.currId = item.id;
+        openRecord(){
             this.$router.push({
-                name: item.id
+                name: 'dietrecord'
             })
         },
+        chooseRun(item){
+            this.currId = item.id;
+            this.openDialog()
+        },
+        openDialog(){
+            this.isDialog = true;
+        },
+        closeDialog(value){
+            this.isDialog = value;
+        },
+        choose(item){
+            this.currCheck = item.id;
+            this.currContent = 1;
+            if(item.id==1){
+                this.remark = this.record.breakfast
+            }
+            if(item.id==2){
+                this.remark = this.record.lunch
+            }
+            if(item.id==3){
+                this.remark = this.record.dinner
+            }
+        }, 
     },
     components: {
         cusdialog,
@@ -133,7 +149,7 @@ export default {
 
 <style lang="scss">
 @import '@/assets/scss/rem.scss';
-.rate{
+.diet{
     background:linear-gradient(0deg,rgba(64,60,97,1),rgba(81,77,113,1));
     box-shadow:0px rem(10) rem(30) 0px rgba(16,15,24,0.2);
     border-radius:rem(20);
@@ -143,26 +159,29 @@ export default {
     width:100%;
     padding-top: rem(30);
     .check-item{
-        text-align: left;
         /* margin-bottom:rem(59); */
         padding-left: rem(30);
         .title{
             text-align:left;
             font-size:rem(30);
             margin-bottom: rem(35);
+            display: flex;
+            justify-content: space-between;
+            padding-right: rem(30);
         }   
         .value{
             display:flex;
             width:100%;
             .nav{
                 width:100%;
+                padding-left: rem(20);
                 .nav-lists{
                     display:flex;
                     justify-content:flex-start;
                     margin-bottom:rem(50);
                     span{
                         display:inline-block;
-                        margin-right:rem(60);
+                        margin-right:rem(200);
                         font-size:rem(24);
                         cursor: pointer;
                     }
@@ -225,53 +244,11 @@ export default {
                         margin-right: rem(80);
                     }
                 }
-                .drug-detail{
-                    display: flex;
-                    .interval-item{
-                        display: flex;
-                        flex-direction: column;
-                        .item-title{
-                            margin-right: rem(100);
-                            margin-bottom: rem(30);
-                        }
-                        .item-text{
-                            display: flex;
-                            flex-direction: column;
-                            text-align: left;
-                            padding-left: rem(20);
-                            .moning{
-                                margin-bottom: rem(50);
-                            }
-                            .noon{
-                                margin-bottom: rem(50);
-                            }
-                        }
-                    }
-                    .dose-item{
-                        display: flex;
-                        flex-direction: column;
-                        .item-title{
-                            margin-right: rem(100);
-                            margin-bottom: rem(15);
-                        }
-                        .item-text{
-                            display: flex;
-                            flex-direction: column;
-                            text-align: left;
-                            /* padding-left: rem(20); */
-                            .input-item{
-                                display: flex;
-                                align-items: center;
-                                margin-bottom: rem(20);
-                                .data-input{
-                                    margin-right: rem(20);
-                                }
-                            }
-                        }
-                    }
-                }
             }
         }  
+        .first-content{
+            margin-bottom: rem(20);
+        }
         .second-content{
             // width:rem(600);
             width:88%;
@@ -306,35 +283,6 @@ export default {
             flex-direction:column;
         }            
     }
-    .save-item{
-        /* display: flex;
-        padding-left: rem(50);
-        margin-bottom: rem(20); */
-        padding-bottom: rem(30);
-        .main-btn{
-            width: rem(80);
-            height: rem(50);
-        }
-    }
-
-    .checkbox-small{
-        // width:rem(176);
-        line-height:rem(80);
-        height:rem(80);
-        margin-right:rem(40);
-        padding-left:rem(41);
-        padding-right:rem(41);
-        
-    }
-    .checkbox{
-        font-size:rem(24);
-        display:inline-block;
-        color:#ffffff;
-        text-align:center;
-        border-radius:rem(10);
-        cursor:pointer;
-        position: relative;
-    }
     .active{
         background:rgba(48,113,242,1);
         box-shadow:0px rem(5) rem(15) 0px rgba(19,23,30,0.1), 0px 0px 2px 0px rgba(255,255,255,1);
@@ -342,6 +290,17 @@ export default {
     .unactive{
         background:rgba(96,96,128,0);
         box-shadow:0px rem(5) rem(15) 0px rgba(19,23,30,0.1), 0px 0px 2px 0px rgba(255,255,255,1);
+    }
+    .save-item{
+        /* display: flex;
+        padding-left: rem(50);
+        margin-bottom: rem(20); */
+        padding-top: rem(30);
+        padding-bottom: rem(30);
+        .main-btn{
+            width: rem(80);
+            height: rem(50);
+        }
     }
 }
 </style>

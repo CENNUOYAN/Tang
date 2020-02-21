@@ -32,10 +32,13 @@ const url = {
     saveVitalSign:'/onBoardWorkStation/saveVitalSigns',
     getVitalSign:'/onBoardWorkStation/getVitalSigns',
 
-    // 评分模块
-    saveTraumaScore:'/onBoardWorkStation/saveTraumaScore',
-    getTraumaScore:'/onBoardWorkStation/getTraumaScore',
-    getScoreItems:'/scoreItem/getScoreItems',
+    // 指标数据
+    saveBloodPressure:'/bloodPressure/save',
+    saveWHeight:'/wHeight/save',
+    saveMedication:'/medication/save',
+    saveMotion: '/motion/save',
+    saveDiet: '/diet/save',
+    saveBloodsugar: '/bloodsugar/save',
 
     // 治疗、护理模块
     saveTreatmentAndCare:'/onBoardWorkStation/saveTreatmentAndCare',
